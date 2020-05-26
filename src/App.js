@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from 'react';
+import { BrowserRouter as Router, Route, Switch,Link } from 'react-router-dom';
+import listContext from './list_context';
+import List from './components/List'
+import Cart from './components/Cart'
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+      const { cartCount } = useContext(listContext);
+
+      return ( 
+        <div>
+          <div className='nav'>
+
+            <Link to='/'>
+              <button>products</button>
+            </Link>
+  
+            <Link to='/cart'>
+              <button>{'cart('+cartCount+')'}</button>
+            </Link>
+            
+          </div>
+  
+        <Switch>
+          <Route exact path='/' component={List}/>
+          <Route path='/cart' component={Cart}/>
+        </Switch>
+        </div>
+     );
+    
 }
 
+ 
 export default App;
